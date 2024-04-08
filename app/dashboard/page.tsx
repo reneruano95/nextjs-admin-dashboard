@@ -1,14 +1,16 @@
-"use client";
-
-import { createClient } from "@/lib/supabase/client";
-import { logout } from "./actions";
+import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
+import LogoutButton from "./_components/logout-button";
 
 export default async function DashboardPage() {
   const supabase = createClient();
 
-  const { data, error } = await supabase.auth.getUser();
-  if (error || !data?.user) {
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser();
+
+  if (error || !user) {
     redirect("/");
   }
 
@@ -16,10 +18,9 @@ export default async function DashboardPage() {
     <div>
       <h1>Dashboard page</h1>
       <p>This is the dashboard page</p>
-      <p>Hello {data.user.email}</p>
-      <button onClick={() => logout()} className="bg-red-500">
-        Logout
-      </button>
+      <p>Hello {user.email}</p>
+
+      <LogoutButton />
     </div>
   );
 }

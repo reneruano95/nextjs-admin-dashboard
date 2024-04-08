@@ -11,6 +11,7 @@ export default function LoginPage() {
         <Input id="email" name="email" type="email" required />
         <Label htmlFor="password">Password:</Label>
         <Input id="password" name="password" type="password" required />
+
         <Button variant={"default"} formAction={login}>
           Log in
         </Button>
