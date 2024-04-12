@@ -1,6 +1,7 @@
+import { createClient } from "@/lib/supabase/server";
 import AuthForm from "./_components/auth-form";
 import { redirect } from "next/navigation";
-import { createClient } from "@/lib/supabase/server";
+import { revalidatePath } from "next/cache";
 
 export default async function LoginPage() {
   const supabase = createClient();
@@ -10,11 +11,11 @@ export default async function LoginPage() {
   } = await supabase.auth.getUser();
 
   if (user) {
-    return redirect("/dashboard");
+    redirect("/dashboard");
   }
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center">
+    <div className=" flex min-h-screen flex-col items-center justify-center">
       <AuthForm />
     </div>
   );

@@ -5,7 +5,7 @@ export default async function DashboardPage() {
   const user = useUserStore.getState().user;
 
   return (
-    <div>
+    <div className="flex min-h-screen flex-col items-center justify-center">
       <h1>Dashboard page</h1>
       <p>This is the dashboard page</p>
       <p>Hello {user?.email}</p>

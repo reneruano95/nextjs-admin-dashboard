@@ -1,5 +1,6 @@
 import { useUserStore } from "@/lib/store/user";
 import { createClient } from "@/lib/supabase/server";
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { ReactNode } from "react";
 
@@ -16,6 +17,9 @@ export default async function Layout({ children }: { children: ReactNode }) {
   }
 
   useUserStore.setState({ user: user });
+  if (user) {
+    revalidatePath("/dashboard");
+  }
 
   return (
     <div className="w-full flex ">

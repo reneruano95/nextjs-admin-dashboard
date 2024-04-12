@@ -3,32 +3,52 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { login } from "@/lib/actions/users";
+import { login } from "@/lib/actions/auth";
+import { AuthSchema, authSchema } from "@/lib/types/schemas";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { AuthTokenResponse } from "@supabase/supabase-js";
-
+import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
-export default async function AuthForm() {
-  const onSubmit = async (formData: FormData) => {
-    const { error } = JSON.parse(await login(formData)) as AuthTokenResponse;
+export default function AuthForm() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<AuthSchema>({
+    resolver: zodResolver(authSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+
+  const onSubmit = async (data: AuthSchema) => {
+    const { error } = JSON.parse(await login(data)) as AuthTokenResponse;
 
     if (error) {
-      toast.error(
-        error.message ?? "Something went wrong. Please try again later."
-      );
+      toast.error(error.message ?? "Something went wrong. Please try again.");
     } else {
-      toast.success("Successfully login");
+      toast.success("Login successful");
     }
   };
 
   return (
-    <form className="flex flex-col gap-2" action={onSubmit}>
-      <Label htmlFor="email">Email:</Label>
-      <Input id="email" name="email" type="email" required />
-      <Label htmlFor="password">Password:</Label>
-      <Input id="password" name="password" type="password" required />
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex flex-col gap-4 min-w-72"
+    >
+      <Label htmlFor="email">Email</Label>
+      <Input type="email" id="email" {...register("email")} />
+      {errors.email && <p>Email is required</p>}
 
-      <Button variant={"default"}>Log in</Button>
+      <Label htmlFor="password">Password</Label>
+      <Input type="password" id="password" {...register("password")} />
+      {errors.password && <p>Password is required</p>}
+
+      <Button type="submit" variant="default">
+        Login
+      </Button>
     </form>
   );
 }
