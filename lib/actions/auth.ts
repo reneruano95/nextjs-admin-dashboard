@@ -47,8 +47,21 @@ export async function logout() {
   return redirect("/login");
 }
 
-// export async function readUserSession() {
-//   const supabase = createClient();
+export async function readUserSession() {
+  const supabase = createClient();
 
-//   return await supabase.auth.getUser();
-// }
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser();
+
+  if (error || !user) {
+    redirect("/login");
+  }
+
+  if (user) {
+    revalidatePath("/dashboard", "layout");
+  }
+
+  return user;
+}

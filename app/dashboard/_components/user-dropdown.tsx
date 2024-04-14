@@ -18,10 +18,10 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import { useUserStore } from "@/lib/store/user";
 import { logout } from "@/lib/actions/auth";
+import { useUserStore } from "@/lib/store/user";
 
-export default function UserItem() {
+export default function UserDropdown() {
   const user = useUserStore.getState().user;
 
   return (
@@ -29,7 +29,7 @@ export default function UserItem() {
       <DropdownMenuTrigger asChild>
         <div
           role="button"
-          className="flex items-center text-sm gap-2 px-3 py-2  w-full "
+          className="flex items-center justify-between text-sm gap-2 px-3 py-2 w-full hover:bg-neutral-200 dark:hover:bg-neutral-700"
         >
           <div className="gap-2 flex items-center max-w-[150px]">
             <Avatar className="w-8 h-8">
@@ -53,7 +53,7 @@ export default function UserItem() {
         </div>
       </DropdownMenuTrigger>
 
-      <DropdownMenuContent className="w-56 ms-2" align="center" forceMount>
+      <DropdownMenuContent className="w-80" align="center" forceMount>
         <DropdownMenuLabel>{user?.email}</DropdownMenuLabel>
         <DropdownMenuSeparator />
 
