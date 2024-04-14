@@ -1,12 +1,12 @@
 "use client";
 
+import { useEffect } from "react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 
 import ContentOrgSidebar from "./content-org-sidebar";
-import { useEffect } from "react";
 
-export default function OrgSidebar() {
+export default function Sidebar() {
   return (
     <>
       <aside
@@ -16,12 +16,12 @@ export default function OrgSidebar() {
       >
         <ContentOrgSidebar />
       </aside>
-      <MobileOrgSidebar />
+      <MobileSidebar />
     </>
   );
 }
 
-export function MobileOrgSidebar() {
+export function MobileSidebar() {
   useEffect(() => {
     window.addEventListener("resize", (e: UIEvent) => {
       const w = e.target as Window;

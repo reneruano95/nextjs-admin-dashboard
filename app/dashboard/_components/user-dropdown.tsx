@@ -6,6 +6,7 @@ import {
   User,
   UserPlus,
   Users,
+  Building2,
 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -72,7 +73,7 @@ export default function UserDropdown() {
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem>
-            <Users className="mr-2 h-4 w-4" />
+            <Building2 className="mr-2 h-4 w-4" />
             <span>Organizations</span>
           </DropdownMenuItem>
 
