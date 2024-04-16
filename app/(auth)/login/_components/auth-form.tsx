@@ -1,8 +1,17 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+
 import { login } from "@/lib/actions/auth";
 import { AuthSchema, authSchema } from "@/lib/types/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -11,11 +20,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 export default function AuthForm() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<AuthSchema>({
+  const form = useForm<AuthSchema>({
     resolver: zodResolver(authSchema),
     defaultValues: {
       email: "",
@@ -27,6 +32,7 @@ export default function AuthForm() {
     const { error } = JSON.parse(await login(data)) as AuthTokenResponse;
 
     if (error) {
+      form.reset();
       toast.error(error.message ?? "Something went wrong. Please try again.");
     } else {
       toast.success("Login successful");
@@ -34,21 +40,43 @@ export default function AuthForm() {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col gap-4 min-w-72"
-    >
-      <Label htmlFor="email">Email</Label>
-      <Input type="email" id="email" {...register("email")} />
-      {errors.email && <p>Email is required</p>}
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="text-lg">Email</FormLabel>
+              <FormControl>
+                <Input placeholder="shadcn" {...field} type="email" />
+              </FormControl>
 
-      <Label htmlFor="password">Password</Label>
-      <Input type="password" id="password" {...register("password")} />
-      {errors.password && <p>Password is required</p>}
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="password"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="text-lg">Password</FormLabel>
+              <FormControl>
+                <Input placeholder="******" {...field} type="password" />
+              </FormControl>
 
-      <Button type="submit" variant="default">
-        Login
-      </Button>
-    </form>
+              <FormDescription>
+                Contact your admin if you forgot your password
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Button type="submit" className="w-full">
+          Submit
+        </Button>
+      </form>
+    </Form>
   );
 }

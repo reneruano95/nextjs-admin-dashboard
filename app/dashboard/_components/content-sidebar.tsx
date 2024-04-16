@@ -2,7 +2,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 
 import { cn } from "@/lib/utils";
-import { links } from "@/lib/constants/sidebar-links";
+import { links } from "@/lib/constants/nav-links";
 import UserDropdown from "./user-dropdown";
 
 export default function ContentOrgSidebar() {
