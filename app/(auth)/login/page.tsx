@@ -1,7 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import AuthForm from "./_components/auth-form";
 import { redirect } from "next/navigation";
-import { revalidatePath } from "next/cache";
 
 export default async function LoginPage() {
   const supabase = createClient();
