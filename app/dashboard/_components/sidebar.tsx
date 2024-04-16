@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 
-import ContentOrgSidebar from "./content-org-sidebar";
+import ContentOrgSidebar from "./content-sidebar";
 
 export default function Sidebar() {
   return (

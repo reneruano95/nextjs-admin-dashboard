@@ -4,6 +4,7 @@ import Sidebar from "./_components/sidebar";
 import Navbar from "./_components/navbar";
 import AppInitializer from "@/lib/providers/user-store-provider";
 import { readUserSession } from "@/lib/actions/auth";
+import Breadcrumbs from "./_components/breadcrumbs";
 
 export default async function DashboardLayout({
   children,
@@ -18,7 +19,13 @@ export default async function DashboardLayout({
         <Sidebar />
         <main className="flex flex-1 flex-col">
           <Navbar />
-          {children}
+          <div className="p-6 h-full md:p-12">
+            <div>
+              <Breadcrumbs />
+            </div>
+
+            {children}
+          </div>
         </main>
       </div>
     </AppInitializer>
