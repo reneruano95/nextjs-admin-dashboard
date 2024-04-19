@@ -20,6 +20,7 @@ export type Payment = {
   amount: number;
   status: "pending" | "processing" | "success" | "failed" | "refunded" | "paid";
   email: string;
+  date: string;
 };
 
 export const columns: ColumnDef<Payment>[] = [
@@ -54,6 +55,13 @@ export const columns: ColumnDef<Payment>[] = [
     header: "ID",
     cell: ({ row }) => {
       return <div className="text-right">{row.getValue("id")}</div>;
+    },
+  },
+  {
+    accessorKey: "date",
+    header: "Date",
+    cell: ({ row }) => {
+      return <div className="text-left">{row.getValue("date")}</div>;
     },
   },
   {
