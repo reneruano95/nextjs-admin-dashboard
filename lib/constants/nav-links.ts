@@ -1,4 +1,10 @@
-import { Building2, LayoutDashboard, Settings, Users } from "lucide-react";
+import {
+  BadgeDollarSign,
+  Building2,
+  LayoutDashboard,
+  Settings,
+  Users,
+} from "lucide-react";
 
 export const links = [
   {
@@ -7,6 +13,11 @@ export const links = [
     icon: LayoutDashboard,
   },
 
+  {
+    name: "Payments",
+    href: "/dashboard/payments",
+    icon: BadgeDollarSign,
+  },
   {
     name: "Users",
     href: "/dashboard/users",

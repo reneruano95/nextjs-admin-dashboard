@@ -14,8 +14,10 @@ import { Input } from "@/components/ui/input";
 
 import { login } from "@/lib/actions/auth";
 import { AuthSchema, authSchema } from "@/lib/types/schemas";
+import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AuthTokenResponse } from "@supabase/supabase-js";
+import { Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
@@ -49,7 +51,11 @@ export default function AuthForm() {
             <FormItem>
               <FormLabel className="text-lg">Email</FormLabel>
               <FormControl>
-                <Input placeholder="shadcn" {...field} type="email" />
+                <Input
+                  placeholder="email@example.com"
+                  {...field}
+                  type="email"
+                />
               </FormControl>
 
               <FormMessage />
@@ -73,7 +79,13 @@ export default function AuthForm() {
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full">
+        <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700">
+          <Loader2
+            className={cn(
+              "hidden",
+              form.formState.isSubmitting && "mr-2 h-4 w-4 animate-spin"
+            )}
+          />
           Submit
         </Button>
       </form>
