@@ -11,7 +11,7 @@ async function getData(): Promise<Member[]> {
       role: "admin",
       status: "active",
       created_at: "2022-01-01",
-      organization_id: "123",
+      organization_name: "MyOrg",
     },
     {
       id: "9494168a",
@@ -20,7 +20,7 @@ async function getData(): Promise<Member[]> {
       role: "user",
       status: "inactive",
       created_at: "2022-01-01",
-      organization_id: "123",
+      organization_name: "MyOrg",
     },
     {
       id: "087cc4d7",
@@ -29,7 +29,7 @@ async function getData(): Promise<Member[]> {
       role: "user",
       status: "active",
       created_at: "2022-01-01",
-      organization_id: "123",
+      organization_name: "OtherOrg",
     },
     {
       id: "8c4d270b",
@@ -38,7 +38,7 @@ async function getData(): Promise<Member[]> {
       role: "user",
       status: "active",
       created_at: "2022-01-01",
-      organization_id: "123",
+      organization_name: "OtherOrg",
     },
   ];
 }
@@ -47,7 +47,7 @@ export default async function UsersPage() {
   const data = await getData();
 
   return (
-    <div className=" flex flex-col flex-1">
+    <div className="flex flex-col flex-1 container mx-auto">
       <DataTable columns={columns} data={data} />
     </div>
   );

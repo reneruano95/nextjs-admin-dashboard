@@ -13,7 +13,7 @@ export type Member = {
   role: "admin" | "user";
   status: "active" | "inactive";
   created_at: string;
-  organization_id: string;
+  organization_name: string;
 };
 
 export const columns: ColumnDef<Member>[] = [
@@ -104,6 +104,17 @@ export const columns: ColumnDef<Member>[] = [
     },
   },
   {
+    accessorKey: "organization_name",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Organization" />
+    ),
+    cell: ({ row }) => {
+      return (
+        <div className="text-left">{row.getValue("organization_name")}</div>
+      );
+    },
+  },
+  {
     accessorKey: "created_at",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Created" />
@@ -114,9 +125,7 @@ export const columns: ColumnDef<Member>[] = [
   },
   {
     accessorKey: "actions",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Actions" />
-    ),
+    header: () => null,
     cell: ({ row }) => <DataTableRowActions row={row} />,
     enableSorting: false,
     enableHiding: false,
