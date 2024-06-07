@@ -40,7 +40,6 @@ export async function logout() {
   try {
     await client.auth.signOut();
   } catch (error) {
-    console.error(error);
     throw error;
   }
 
